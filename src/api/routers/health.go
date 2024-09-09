@@ -10,4 +10,5 @@ func Health(r *gin.RouterGroup) {
 
 	r.GET("/", handler.Health)
 	r.POST("/", handler.HealthPost)
+	r.POST("/:id", handler.HealthPostById)
 }

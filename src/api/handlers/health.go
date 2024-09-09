@@ -18,3 +18,8 @@ func (h *HealthHandler) HealthPost(c *gin.Context) {
 	c.JSON(200, "post method")
 	return
 }
+
+func (h *HealthHandler) HealthPostById(c *gin.Context) {
+	c.JSON(200, "working post by id")
+	return
+}
