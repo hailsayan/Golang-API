@@ -1,6 +1,9 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/hailsayan/Golang-API/api/routers"
+)
 
 func InitServer() {
 	r := gin.New()
@@ -8,10 +11,8 @@ func InitServer() {
 
 	v1 := r.Group("/api/v1/")
 	{
-		v1.GET("/health", func(c *gin.Context) {
-			c.JSON(200, "working...")
-			return
-		})
+		health := v1.Group("/health")
+		routers.Health(health)
 	}
 	r.Run(":8000")
 }
