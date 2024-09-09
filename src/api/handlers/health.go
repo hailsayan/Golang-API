@@ -1,6 +1,10 @@
 package handlers
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+
+	"github.com/gin-gonic/gin"
+)
 
 type HealthHandler struct {
 }
@@ -20,6 +24,7 @@ func (h *HealthHandler) HealthPost(c *gin.Context) {
 }
 
 func (h *HealthHandler) HealthPostById(c *gin.Context) {
-	c.JSON(200, "working post by id")
+	id := c.Params.ByName("id")
+	c.JSON(200, fmt.Sprintf("working post by id: %s", id))
 	return
 }
