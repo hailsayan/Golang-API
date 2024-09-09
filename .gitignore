@@ -22,6 +22,6 @@ go.work
 
 *.log
 *.log.gz
-__debug_bin
+__debug_bin*
 */cmd/uploads
 .vscode
