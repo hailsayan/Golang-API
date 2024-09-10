@@ -3,6 +3,7 @@ package config
 import (
 	"errors"
 	"log"
+	"os"
 
 	"github.com/spf13/viper"
 )
@@ -37,6 +38,19 @@ type RedisConfig struct {
 	PoolTimeout      int
 }
 
+func GetConfig() *Config {
+	cfgPath := getConfigPath(os.Getenv("APP_ENV"))
+	v, err := LoadConfig(cfgPath, "yml")
+	if err != nil {
+		log.Fatal("Error in load config %v", err)
+	}
+
+	cfg, err := ParseConfig(v)
+	if err != nil {
+		log.Fatal("Error in parse config %v", err)
+	}
+	return cfg
+}
 func ParseConfig(v *viper.Viper) (*Config, error) {
 	var cfg Config
 	err := v.Unmarshal(&cfg)
@@ -55,6 +69,7 @@ func LoadConfig(fileName string, fileType string) (*viper.Viper, error) {
 
 	err := v.ReadInConfig()
 	if err != nil {
+		log.Printf("Unable to read config: %v", err)
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
 			return nil, errors.New("config file not found")
 		}
@@ -69,6 +84,6 @@ func getConfigPath(env string) string {
 	} else if env == "production" {
 		return "config/config-production"
 	} else {
-		return "config/config-development"
+		return "../config/config-development"
 	}
 }
