@@ -65,3 +65,14 @@ func (h *TestHandler) QueryBinderN01(c *gin.Context) {
 		"name":   name,
 	})
 }
+
+func (h *TestHandler) UriBinder(c *gin.Context) {
+	id := c.Param("id")
+	name := c.Param("name")
+
+	c.JSON(http.StatusOK, gin.H{
+		"result": "UriBinder",
+		"id":     id,
+		"name":   name,
+	})
+}
