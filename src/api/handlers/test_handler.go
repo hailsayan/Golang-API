@@ -54,3 +54,14 @@ func (h *TestHandler) HeaderBinderN02(c *gin.Context) {
 		"header": header,
 	})
 }
+
+func (h *TestHandler) QueryBinderN01(c *gin.Context) {
+	ids := c.QueryArray("id")
+	name := c.Query("name")
+
+	c.JSON(http.StatusOK, gin.H{
+		"result": "QueryBinderN01",
+		"ids":    ids,
+		"name":   name,
+	})
+}
