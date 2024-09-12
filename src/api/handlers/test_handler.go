@@ -6,6 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type header struct {
+	UserId  string
+	Browser string
+}
 type TestHandler struct {
 }
 
@@ -30,5 +34,23 @@ func (h *TestHandler) UserById(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"result": "UserById",
 		"id":     id,
+	})
+}
+
+func (h *TestHandler) HeaderBinderNo1(c *gin.Context) {
+	userId := c.GetHeader("UserId")
+	c.JSON(http.StatusOK, gin.H{
+		"result": "HeaderBinderNo1",
+		"userId": userId,
+	})
+}
+
+func (h *TestHandler) HeaderBinderN02(c *gin.Context) {
+	header := header{}
+	c.BindHeader(&header)
+
+	c.JSON(http.StatusOK, gin.H{
+		"result": "HeaderBinderN02",
+		"header": header,
 	})
 }
