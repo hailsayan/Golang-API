@@ -10,6 +10,10 @@ type header struct {
 	UserId  string
 	Browser string
 }
+type personDataa struct {
+	FirstName string
+	LastName  string
+}
 type TestHandler struct {
 }
 
@@ -74,5 +78,38 @@ func (h *TestHandler) UriBinder(c *gin.Context) {
 		"result": "UriBinder",
 		"id":     id,
 		"name":   name,
+	})
+}
+
+func (h *TestHandler) BodyBinder(c *gin.Context) {
+	p := personDataa{}
+	c.ShouldBindJSON(&p)
+	c.JSON(http.StatusOK, gin.H{
+		"result": "BodyBinder",
+		"person": p,
+	})
+}
+
+func (h *TestHandler) FormBinder(c *gin.Context) {
+	p := personDataa{}
+	c.Bind(&p)
+	c.JSON(http.StatusOK, gin.H{
+		"result": "FormBinder",
+		"person": p,
+	})
+}
+
+func (h *TestHandler) FileBinder(c *gin.Context) {
+	file, _ := c.FormFile("file")
+	err := c.SaveUploadedFile(file, "file")
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"result": "FileBinder",
+		"file":   file.Filename,
 	})
 }
