@@ -20,7 +20,7 @@ func InitServer() {
 		val.RegisterValidation("mobile", validation.IranianMobileNumberValidator, true)
 	}
 
-	r.Use(gin.Logger(), gin.Recovery())
+	r.Use(gin.Logger(), gin.Recovery() /*middleware.TestMiddleware()*/)
 	api := r.Group("/api")
 
 	v1 := api.Group("/v1")
