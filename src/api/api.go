@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
+	middlewares "github.com/hailsayan/Golang-API/api/middlewares"
 	"github.com/hailsayan/Golang-API/api/routers"
 	validation "github.com/hailsayan/Golang-API/api/validations"
 	"github.com/hailsayan/Golang-API/config"
@@ -18,9 +19,10 @@ func InitServer() {
 	val, ok := binding.Validator.Engine().(*validator.Validate)
 	if ok {
 		val.RegisterValidation("mobile", validation.IranianMobileNumberValidator, true)
+		val.RegisterValidation("password", validation.PasswordValidator, true)
 	}
 
-	r.Use(gin.Logger(), gin.Recovery() /*middleware.TestMiddleware()*/)
+	r.Use(gin.Logger(), gin.Recovery() /*middlewares.TestMiddleware()*/, middlewares.LimitByRequest())
 	api := r.Group("/api")
 
 	v1 := api.Group("/v1")
