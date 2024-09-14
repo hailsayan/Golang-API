@@ -13,6 +13,7 @@ type Config struct {
 	Postgres PostgresConfig
 	Redis    RedisConfig
 	Password PasswordConfig
+	Cors     CorsConfig
 }
 
 type ServerConfig struct {
@@ -96,4 +97,8 @@ func getConfigPath(env string) string {
 	} else {
 		return "../config/config-development"
 	}
+}
+
+type CorsConfig struct {
+	AllowOrigins string
 }
