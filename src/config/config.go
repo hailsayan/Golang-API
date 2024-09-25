@@ -64,15 +64,18 @@ func GetConfig() *Config {
 	cfgPath := getConfigPath(os.Getenv("APP_ENV"))
 	v, err := LoadConfig(cfgPath, "yml")
 	if err != nil {
-		log.Fatal("Error in load config %v", err)
+		log.Fatalf("Error in load config %v", err)
 	}
 
 	cfg, err := ParseConfig(v)
+
 	if err != nil {
-		log.Fatal("Error in parse config %v", err)
+		log.Fatalf("Error in parse config %v", err)
 	}
+
 	return cfg
 }
+
 func ParseConfig(v *viper.Viper) (*Config, error) {
 	var cfg Config
 	err := v.Unmarshal(&cfg)
@@ -82,10 +85,10 @@ func ParseConfig(v *viper.Viper) (*Config, error) {
 	}
 	return &cfg, nil
 }
-func LoadConfig(fileName string, fileType string) (*viper.Viper, error) {
+func LoadConfig(filename string, fileType string) (*viper.Viper, error) {
 	v := viper.New()
-	v.SetConfigName(fileName)
 	v.SetConfigType(fileType)
+	v.SetConfigName(filename)
 	v.AddConfigPath(".")
 	v.AutomaticEnv()
 
