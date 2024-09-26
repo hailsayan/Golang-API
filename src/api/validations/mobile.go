@@ -1,10 +1,8 @@
 package validation
 
 import (
-	"log"
-	"regexp"
-
 	"github.com/go-playground/validator/v10"
+	"github.com/hailsayan/Golang-API/common"
 )
 
 func IranianMobileNumberValidator(fld validator.FieldLevel) bool {
@@ -14,9 +12,5 @@ func IranianMobileNumberValidator(fld validator.FieldLevel) bool {
 		return false
 	}
 
-	res, err := regexp.MatchString(`^09(1[0-9]|2[0-2]|3[0-9]|9[0-9])[0-9]{7}$`, value)
-	if err != nil {
-		log.Print(err.Error())
-	}
-	return res
+	return common.IranianMobileNumberValidate(value)
 }

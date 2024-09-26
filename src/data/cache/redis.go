@@ -1,11 +1,10 @@
 package cache
 
 import (
-	"context"
 	"fmt"
 	"time"
 
-	"github.com/go-redis/redis/v8"
+	"github.com/go-redis/redis/v7"
 	"github.com/hailsayan/Golang-API/config"
 )
 
@@ -25,13 +24,13 @@ func InitRedis(cfg *config.Config) error {
 		IdleCheckFrequency: cfg.Redis.IdleCheckFrequency * time.Millisecond,
 	})
 
-	ctx := context.Background()
-	_, err := redisClient.Ping(ctx).Result()
+	_, err := redisClient.Ping().Result()
 	if err != nil {
 		return err
 	}
 	return nil
 }
+
 func GetRedis() *redis.Client {
 	return redisClient
 }

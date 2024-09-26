@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
-	middlewares "github.com/hailsayan/Golang-API/api/middlewares"
+	"github.com/hailsayan/Golang-API/api/middlewares"
 	"github.com/hailsayan/Golang-API/api/routers"
 	validation "github.com/hailsayan/Golang-API/api/validations"
 	"github.com/hailsayan/Golang-API/config"

@@ -6,22 +6,24 @@ import (
 )
 
 func TestRouter(r *gin.RouterGroup) {
-	h := handlers.NewTesthandler()
+	h := handlers.NewTestHandler()
+
 	r.GET("/", h.Test)
 	r.GET("/users", h.Users)
-	r.GET("/users/:id/", h.UserById)
+	r.GET("/user/:id", h.UserById)
+	r.GET("/user/get-user-by-username/:username", h.UserByUsername)
+	r.GET("/user/:id/accounts", h.Accounts)
+	r.POST("/add-user", h.AddUser)
 
-	r.POST("/binder/headerno1", h.HeaderBinderNo1)
-	r.POST("/binder/headerno2", h.HeaderBinderN02)
+	r.POST("/binder/header1", h.HeaderBinder1)
+	r.POST("/binder/header2", h.HeaderBinder2)
 
-	r.POST("/binder/query1", h.QueryBinderN01)
+	r.POST("/binder/query1", h.QueryBinder1)
+	r.POST("/binder/query2", h.QueryBinder2)
 
 	r.POST("/binder/uri/:id/:name", h.UriBinder)
-
 	r.POST("/binder/body", h.BodyBinder)
-
 	r.POST("/binder/form", h.FormBinder)
-
 	r.POST("/binder/file", h.FileBinder)
 
 }
