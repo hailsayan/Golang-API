@@ -1,4 +1,4 @@
-version: '3.7'
+version: '1.0'
 
 services:
   postgres:
@@ -7,15 +7,10 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
-<<<<<<< Updated upstream
       POSTGRES_DB: db
       PGDATA: /data/postgres
-=======
-      POSTGRES_dB: db
-      PGDATA: /data/postgres.go
->>>>>>> Stashed changes
     volumes:
-      - postgres:/data/postgres.go
+      - postgres:/data/postgres
     ports:
       - "5432:5432"
     networks:
