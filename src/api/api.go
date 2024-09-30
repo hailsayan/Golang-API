@@ -11,6 +11,7 @@ import (
 	validation "github.com/hailsayan/Golang-API/api/validations"
 	"github.com/hailsayan/Golang-API/config"
 	"github.com/hailsayan/Golang-API/docs"
+	"github.com/hailsayan/Golang-API/pkg/logging"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -25,6 +26,9 @@ func InitServer(cfg *config.Config) {
 
 	RegisterRoutes(r)
 	RegisterSwagger(r, cfg)
+
+	logger := logging.NewLogger(cfg)
+	logger.Info(logging.General, logging.Startup, "Started", nil)
 
 	r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
 }
