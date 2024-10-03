@@ -7,6 +7,7 @@ import (
 
 	"github.com/hailsayan/Golang-API/data/cache"
 	"github.com/hailsayan/Golang-API/data/db"
+	"github.com/hailsayan/Golang-API/data/db/migrations"
 )
 
 // @securityDefinitions.apikey AuthBearer
@@ -28,6 +29,7 @@ func main() {
 	if err != nil {
 		logger.Fatal(logging.Postgres, logging.Startup, err.Error(), nil)
 	}
+	migrations.Up_1()
 
 	api.InitServer(cfg)
 }
